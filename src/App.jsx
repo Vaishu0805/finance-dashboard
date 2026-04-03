@@ -91,7 +91,7 @@ function App() {
       {/* 🔥 MAIN CONTENT */}
       <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
         
-        {/* 🔹 HEADER (FIXED) */}
+        {/* 🔹 HEADER (UPDATED WITH ROLE INDICATOR) */}
         <div
           style={{
             padding: "15px 20px",
@@ -105,16 +105,31 @@ function App() {
         >
           <h2 style={{ fontWeight: "600" }}>Dashboard</h2>
 
-          <div>
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            
+            {/* 🔥 ROLE INDICATOR */}
+            <span
+              style={{
+                padding: "5px 10px",
+                borderRadius: "8px",
+                background: role === "admin" ? "#22c55e" : "#f59e0b",
+                color: "#fff",
+                fontSize: "12px",
+              }}
+            >
+              {role === "admin" ? "👨‍💼 Admin" : "👀 Viewer"}
+            </span>
+
+            {/* ROLE SELECT */}
             <select
               value={role}
               onChange={(e) => setRole(e.target.value)}
-              style={{ marginRight: "10px" }}
             >
               <option value="viewer">Viewer</option>
               <option value="admin">Admin</option>
             </select>
 
+            {/* DARK MODE */}
             <button onClick={() => setDarkMode(!darkMode)}>
               {darkMode ? "☀️" : "🌙"}
             </button>
