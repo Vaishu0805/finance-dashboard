@@ -41,7 +41,7 @@ export default function Transactions({
   );
 
   return (
-    <div style={{ marginTop: "20px" }}>
+    <div style={{ marginTop: "30px", marginBottom: "40px" }}>
       <h2>📋 Transactions</h2>
 
       <input
@@ -80,13 +80,7 @@ export default function Transactions({
       )}
 
       <div style={{ overflowX: "auto", marginTop: "10px" }}>
-        <table
-          border="1"
-          style={{
-            width: "100%",
-            background: darkMode ? "#2c2c2c" : "#fff",
-          }}
-        >
+        <table border="1" style={{ width: "100%", background: darkMode ? "#2c2c2c" : "#fff" }}>
           <thead>
             <tr>
               <th>Date</th>
@@ -98,24 +92,39 @@ export default function Transactions({
           </thead>
 
           <tbody>
-            {filtered.map((t) => (
-              <tr key={t.id}>
-                <td>{t.date}</td>
-                <td>₹{t.amount}</td>
-                <td>{t.category}</td>
-                <td>{t.type}</td>
-
-                {role === "admin" && (
-                  <td>
-                    <button onClick={() => handleEdit(t)}>Edit</button>
-                    <button onClick={() => deleteTransaction(t.id)}>Delete</button>
-                  </td>
-                )}
+            {filtered.length === 0 ? (
+              <tr>
+                <td colSpan="5">No transactions found</td>
               </tr>
-            ))}
+            ) : (
+              filtered.map((t) => (
+                <tr key={t.id}>
+                  <td>{t.date}</td>
+                  <td>₹{t.amount}</td>
+                  <td>{t.category}</td>
+                  <td>{t.type}</td>
+
+                  {role === "admin" && (
+                    <td>
+                      <button onClick={() => handleEdit(t)}>Edit</button>
+                      <button onClick={() => deleteTransaction(t.id)}>Delete</button>
+                    </td>
+                  )}
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>
     </div>
   );
 }
+<footer
+  style={{
+    marginTop: "40px",
+    textAlign: "center",
+    opacity: 0.7,
+  }}
+>
+  <p>© 2026 Vaishnavi | Finance Dashboard</p>
+</footer>

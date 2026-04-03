@@ -1,18 +1,23 @@
-# React + Vite
+# Finance Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A responsive financial dashboard built using React.
 
-Currently, two official plugins are available:
+## Features
+- Add, edit, delete transactions
+- Role-based UI (Admin / Viewer)
+- Charts (Pie & Line)
+- Dark mode
+- Responsive design
+- Local storage persistence
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Tech Stack
+- React (Vite)
+- JavaScript
+- Recharts
+- CSS
 
-## React Compiler
+## Live Demo
+https://finance-dashboard-vaishnavi.netlify.app/
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
-
-Note: This will impact Vite dev & build performances.
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## GitHub Repo
+https://github.com/Vaishu0805/finance-dashboard
