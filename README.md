@@ -1,23 +1,23 @@
-# Finance Dashboard
+# Finance Dashboard UI
 
-A responsive financial dashboard built using React.
-
-## Features
-- Add, edit, delete transactions
+## 🚀 Features
+- Dashboard overview (Balance, Income, Expenses)
+- Charts (Spending breakdown, Trend)
+- Transactions management (Add, Edit, Delete)
 - Role-based UI (Admin / Viewer)
-- Charts (Pie & Line)
+- Insights (Category, Monthly comparison)
+- Advanced filtering & sorting
+- Export CSV
 - Dark mode
-- Responsive design
-- Local storage persistence
+- Mock API integration
 
-## Tech Stack
-- React (Vite)
-- JavaScript
+## 🛠 Tech Stack
+- ReactJS
 - Recharts
-- CSS
+- JavaScript (ES6)
+- CSS (inline styling)
 
-## Live Demo
-https://finance-dashboard-vaishnavi.netlify.app/
-
-## GitHub Repo
-https://github.com/Vaishu0805/finance-dashboard
+## ▶️ How to Run
+```bash
+npm install
+npm run dev
