@@ -64,58 +64,43 @@ function App() {
         color: darkMode ? "#fff" : "#000",
       }}
     >
+
       {/* 🔥 SIDEBAR */}
-      <div
-        style={{
-          width: "220px",
-          background: "#1f2937",
-          color: "#fff",
-          padding: "20px",
-        }}
-      >
-        <h2>💰 FinTrack</h2>
-        <p>Dashboard</p>
-        <p>Transactions</p>
-        <p>Insights</p>
+      <div style={{
+        width: "220px",
+        background: "#111827",
+        color: "#fff",
+        padding: "20px",
+        display: "flex",
+        flexDirection: "column",
+        gap: "20px"
+    }}>
+    <h2 style={{ color: "#22c55e" }}>FinTrack</h2>
 
-        <hr />
-
-        <p>Settings</p>
-      </div>
+    <div>🏠 Overview</div>
+    <div>💳 Transactions</div>
+    <div>📊 Analytics</div>
+    <div>⚙️ Settings</div>
+  </div>
 
       {/* 🔥 MAIN CONTENT */}
       <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
         
         {/* 🔹 HEADER */}
-        <div
-          style={{
-            padding: "15px 20px",
-            background: darkMode ? "#1e1e1e" : "#fff",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <h2>Finance Dashboard</h2>
+        <div style={{
+  padding: "15px 20px",
+  background: "#1f2937",
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center"
+}}>
+  <h2>Dashboard</h2>
 
-          <div>
-            <select
-              value={role}
-              onChange={(e) => setRole(e.target.value)}
-            >
-              <option value="viewer">Viewer</option>
-              <option value="admin">Admin</option>
-            </select>
-
-            <button
-              onClick={() => setDarkMode(!darkMode)}
-              style={{ marginLeft: "10px" }}
-            >
-              {darkMode ? "☀️" : "🌙"}
-            </button>
-          </div>
-        </div>
-
+  <div>
+    <select value={role} onChange={(e)=>setRole(e.target.value)} />
+    <button onClick={()=>setDarkMode(!darkMode)}>🌙</button>
+  </div>
+</div>
         {/* 🔹 CONTENT AREA */}
         <div style={{ padding: "20px", flex: 1 }}>
           <Dashboard transactions={transactions} darkMode={darkMode} />
