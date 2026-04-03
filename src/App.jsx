@@ -8,7 +8,7 @@ function App() {
   const [role, setRole] = useState("viewer");
   const [darkMode, setDarkMode] = useState(true);
 
-  // Load data
+  // ✅ Load data
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem("transactions"));
 
@@ -34,13 +34,17 @@ function App() {
     }
   }, []);
 
-  // Save data
+  // ✅ Save data
   useEffect(() => {
     localStorage.setItem("transactions", JSON.stringify(transactions));
   }, [transactions]);
 
+  // CRUD functions
   const addTransaction = (newTransaction) => {
-    setTransactions([...transactions, { ...newTransaction, id: Date.now() }]);
+    setTransactions([
+      ...transactions,
+      { ...newTransaction, id: Date.now() },
+    ]);
   };
 
   const deleteTransaction = (id) => {
@@ -60,48 +64,64 @@ function App() {
       style={{
         display: "flex",
         minHeight: "100vh",
-        background: darkMode ? "#121212" : "#f5f7fa",
+        background: darkMode ? "#0f172a" : "#f5f7fa",
         color: darkMode ? "#fff" : "#000",
       }}
     >
-
       {/* 🔥 SIDEBAR */}
-      <div style={{
-        width: "220px",
-        background: "#111827",
-        color: "#fff",
-        padding: "20px",
-        display: "flex",
-        flexDirection: "column",
-        gap: "20px"
-    }}>
-    <h2 style={{ color: "#22c55e" }}>FinTrack</h2>
+      <div
+        style={{
+          width: "220px",
+          background: "#111827",
+          color: "#fff",
+          padding: "20px",
+          display: "flex",
+          flexDirection: "column",
+          gap: "20px",
+        }}
+      >
+        <h2 style={{ color: "#22c55e" }}>FinTrack</h2>
 
-    <div>🏠 Overview</div>
-    <div>💳 Transactions</div>
-    <div>📊 Analytics</div>
-    <div>⚙️ Settings</div>
-  </div>
+        <div>🏠 Overview</div>
+        <div>💳 Transactions</div>
+        <div>📊 Analytics</div>
+        <div>⚙️ Settings</div>
+      </div>
 
       {/* 🔥 MAIN CONTENT */}
       <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
         
-        {/* 🔹 HEADER */}
-        <div style={{
-  padding: "15px 20px",
-  background: "#1f2937",
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center"
-}}>
-  <h2>Dashboard</h2>
+        {/* 🔹 HEADER (FIXED) */}
+        <div
+          style={{
+            padding: "15px 20px",
+            background: darkMode ? "#1f2937" : "#ffffff",
+            color: darkMode ? "#ffffff" : "#111827",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            borderBottom: "1px solid #374151",
+          }}
+        >
+          <h2 style={{ fontWeight: "600" }}>Dashboard</h2>
 
-  <div>
-    <select value={role} onChange={(e)=>setRole(e.target.value)} />
-    <button onClick={()=>setDarkMode(!darkMode)}>🌙</button>
-  </div>
-</div>
-        {/* 🔹 CONTENT AREA */}
+          <div>
+            <select
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
+              style={{ marginRight: "10px" }}
+            >
+              <option value="viewer">Viewer</option>
+              <option value="admin">Admin</option>
+            </select>
+
+            <button onClick={() => setDarkMode(!darkMode)}>
+              {darkMode ? "☀️" : "🌙"}
+            </button>
+          </div>
+        </div>
+
+        {/* 🔹 CONTENT */}
         <div style={{ padding: "20px", flex: 1 }}>
           <Dashboard transactions={transactions} darkMode={darkMode} />
 
@@ -117,13 +137,13 @@ function App() {
           <Insights transactions={transactions} />
         </div>
 
-        {/* 🔥 FOOTER (FIXED PROPERLY) */}
+        {/* 🔥 FOOTER */}
         <footer
           style={{
             padding: "15px",
             textAlign: "center",
-            background: darkMode ? "#1e1e1e" : "#fff",
-            borderTop: "1px solid #444",
+            background: darkMode ? "#1f2937" : "#ffffff",
+            borderTop: "1px solid #374151",
           }}
         >
           <p>© 2026 Vaishnavi | Finance Dashboard</p>
