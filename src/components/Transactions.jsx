@@ -2,16 +2,16 @@ import { useState } from "react";
 
 export default function Transactions({
   transactions,
-  addTransaction,
   deleteTransaction,
-  editTransaction,
   role,
+  darkMode,
 }) {
   const [search, setSearch] = useState("");
   const [typeFilter, setTypeFilter] = useState("");
-  const [sortType, setSortType] = useState("");
 
-  // 🔥 Filter
+  const bg = darkMode ? "#1f2937" : "#ffffff";
+  const text = darkMode ? "#ffffff" : "#000000";
+
   let filtered = transactions.filter((t) =>
     t.category.toLowerCase().includes(search.toLowerCase())
   );
@@ -20,55 +20,49 @@ export default function Transactions({
     filtered = filtered.filter((t) => t.type === typeFilter);
   }
 
-  // 🔥 Sort
-  if (sortType === "amount") {
-    filtered.sort((a, b) => b.amount - a.amount);
-  }
-
-  // 🔥 EXPORT CSV
   const exportCSV = () => {
     const csv = [
       ["Date", "Amount", "Category", "Type"],
       ...filtered.map((t) => [t.date, t.amount, t.category, t.type]),
     ]
-      .map((row) => row.join(","))
+      .map((r) => r.join(","))
       .join("\n");
 
     const blob = new Blob([csv], { type: "text/csv" });
-    const url = URL.createObjectURL(blob);
-
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "transactions.csv";
-    a.click();
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "transactions.csv";
+    link.click();
   };
 
   return (
-    <div>
-      <h2>Transactions</h2>
+    <div style={{ marginTop: "30px" }}>
+      <h2>📋 Transactions</h2>
 
-      {/* 🔍 Filters */}
-      <input
-        placeholder="Search"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
+      {/* Controls */}
+      <div style={{ marginBottom: "10px" }}>
+        <input
+          placeholder="Search"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
 
-      <select onChange={(e) => setTypeFilter(e.target.value)}>
-        <option value="">All</option>
-        <option value="income">Income</option>
-        <option value="expense">Expense</option>
-      </select>
+        <select onChange={(e) => setTypeFilter(e.target.value)}>
+          <option value="">All</option>
+          <option value="income">Income</option>
+          <option value="expense">Expense</option>
+        </select>
 
-      <select onChange={(e) => setSortType(e.target.value)}>
-        <option value="">Sort</option>
-        <option value="amount">Amount</option>
-      </select>
-
-      <button onClick={exportCSV}>Export CSV</button>
+        <button onClick={exportCSV}>Export CSV</button>
+      </div>
 
       {/* Table */}
-      <table border="1">
+      <table style={{
+        width: "100%",
+        background: bg,
+        color: text,
+        borderCollapse: "collapse"
+      }}>
         <thead>
           <tr>
             <th>Date</th>
@@ -80,19 +74,30 @@ export default function Transactions({
         </thead>
 
         <tbody>
-          {filtered.map((t) => (
-            <tr key={t.id}>
-              <td>{t.date}</td>
-              <td>{t.amount}</td>
-              <td>{t.category}</td>
-              <td>{t.type}</td>
-              <td>
-                <button onClick={() => deleteTransaction(t.id)}>
-                  Delete
-                </button>
+          {filtered.length === 0 ? (
+            <tr>
+              <td colSpan="5" style={{ textAlign: "center", padding: "20px" }}>
+                No transactions found
               </td>
             </tr>
-          ))}
+          ) : (
+            filtered.map((t) => (
+              <tr key={t.id}>
+                <td>{t.date}</td>
+                <td>₹{t.amount}</td>
+                <td>{t.category}</td>
+                <td>{t.type}</td>
+                <td>
+                  <button
+                    disabled={role !== "admin"}
+                    onClick={() => deleteTransaction(t.id)}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
     </div>
